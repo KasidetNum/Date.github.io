@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>Mint, I Have a Question</title>
+  <style>
+    :root {
+      --bg-light: #e7ebee;
+      --card: #f4f6f7;
+      --text-main: #2e3a45;
+      --soft-blue: #93a8b4;
+      --soft-blue-dark: #2f4154;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Inter", "Segoe UI", sans-serif;
+      background: var(--bg-light);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .container {
+      text-align: center;
+      background: var(--card);
+      padding: 32px 24px;
+      border-radius: 24px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.07);
+      width: 92%;
+      max-width: 420px;
+    }
+
+    h1 {
+      font-size: 1.5rem;
+      margin-bottom: 14px;
+      color: var(--soft-blue-dark);
+      font-weight: 600;
+    }
+
+    p {
+      font-size: 0.95rem;
+      margin-bottom: 26px;
+      line-height: 1.45;
+      opacity: 0.85;
+    }
+
+    h2 {
+      font-size: 1.25rem;
+      margin-bottom: 20px;
+      color: var(--soft-blue-dark);
+    }
+
+    .btn {
+      padding: 12px 26px;
+      margin: 8px;
+      border: none;
+      border-radius: 18px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.18s ease;
+    }
+
+    #yesBtn {
+      background: var(--soft-blue);
+      color: white;
+    }
+
+    #yesBtn:active {
+      transform: scale(0.96);
+      background: #8299a7;
+    }
+
+    #noBtn {
+      background: #d3d8dd;
+      color: #3b4650;
+      position: relative;
+    }
+
+    #noBtn:active {
+      transform: scale(0.96);
+    }
+
+    /* Space for your photo */
+    .photo-space {
+      margin-top: 28px;
+      height: 150px;
+      background: rgba(0, 0, 0, 0.04);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      color: #5d6c75;
+    }
+
+    /* Heart animations */
+    .hearts {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 999;
+    }
+
+    .heart {
+      position: absolute;
+      color: var(--soft-blue);
+      font-size: 18px;
+      animation: floatUp 2s linear forwards;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      100% { transform: translateY(-140px) scale(1.7); opacity: 0; }
+    }
+
+    /* Mobile optimizations */
+    @media (max-width: 480px) {
+      .container { padding: 28px 20px; }
+      h1 { font-size: 1.35rem; }
+      h2 { font-size: 1.15rem; }
+      .btn { padding: 11px 24px; font-size: 0.95rem; }
+      .photo-space { height: 130px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Mint, I have a question for you</h1>
+
+    <p><!-- Write your personal message here -->
+      <!-- Example: "I made something small for you..." -->
+    </p>
+
+    <h2>Will you go on a date with me?</h2>
+
+    <button id="yesBtn" class="btn">Yes 💙</button>
+    <button id="noBtn" class="btn">No 😳</button>
+
+    <div id="result" style="margin-top:22px; font-size:1.05rem; font-weight:500; display:none; color:var(--soft-blue-dark);"></div>
+
+    <div class="photo-space">
+      <!-- Insert your photo here -->
+      Photo goes here
+    </div>
+  </div>
+
+  <div class="hearts" id="hearts"></div>
+
+  <script>
+    const noBtn = document.getElementById("noBtn");
+    const yesBtn = document.getElementById("yesBtn");
+    const result = document.getElementById("result");
+    const hearts = document.getElementById("hearts");
+
+    // No button avoids finger
+    noBtn.addEventListener("touchstart", moveNoBtn);
+    noBtn.addEventListener("mouseover", moveNoBtn);
+
+    function moveNoBtn() {
+      const x = (Math.random() * 120 - 60).toFixed();
+      const y = (Math.random() * 120 - 60).toFixed();
+      noBtn.style.transform = `translate(${x}px, ${y}px)`;
+    }
+
+    // Heart animation on Yes
+    yesBtn.addEventListener("click", () => {
+      result.style.display = "block";
+      result.textContent = "Yay! I can’t wait 💙";
+
+      for (let i = 0; i < 22; i++) {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.textContent = "❤";
+        heart.style.left = Math.random() * 100 + "%";
+        heart.style.top = "80%";
+        hearts.appendChild(heart);
+
+        setTimeout(() => heart.remove(), 2000);
+      }
+    });
+  </script>
+</body>
+</html>
